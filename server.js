@@ -12,7 +12,7 @@ app.use(bodyParser.json());
  * DATABASE *
  ************/
 
-// var db = require('./models');
+var db = require('./models');
 
 /**********
  * ROUTES *
@@ -46,6 +46,31 @@ app.get('/api', function api_index(req, res) {
       {method: "GET", path: "/api/profile", description: "More about me!"}, 
       {method: "POST", path: "/api/trails", description: "Create a new trail!"} 
     ]
+  });
+});
+
+app.get('/api/trails', function(req,res) {
+  //get all trails as JSON
+  db.Trail.find()
+    .exec(function(err,trails) {
+      if (err) {return console.log(err);}
+      res.json(trails);
+    });
+});
+
+app.get('/api/trails/:id', function(req,res) {
+  //get one trail by id
+  db.Trail.findOne({_id: req.params.id}, function(err,doc) {
+    res.json(doc);
+  });
+});
+
+app.post('/api/trails', function(req,res) {
+  var newTrail = new db.Trail({
+    name: req.body.name,
+    miles: req.body.miles,
+    difficulty: req.body.difficulty,
+    completed: req.body.completed
   });
 });
 

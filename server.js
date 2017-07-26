@@ -44,7 +44,7 @@ app.get('/api', function api_index(req, res) {
     endpoints: [
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
       {method: "GET", path: "/api/profile", description: "More about me!"}, 
-      {method: "POST", path: "/api/shows", description: "Create a new show!"} 
+      {method: "POST", path: "/api/trails", description: "Create a new trail!"} 
     ]
   });
 });

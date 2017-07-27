@@ -50,6 +50,26 @@ app.get('/api', function api_index(req, res) {
   });
 });
 
+app.get('/api/profile', function(req,res) {
+  //Displays profile data
+  res.json({
+    name: "Chase Barrett",
+    github_link: "https://github.com/Astroknut",
+    github_profile_image: "Coming soon",
+    current_city: "Broomfield, CO",
+    pets: [{
+      name: "Perseus",
+      type: "cat",
+      color: "black"
+    },
+    {
+      name: "Iris",
+      type: "cat",
+      color: "white/black"
+    }]
+  });
+});
+
 app.get('/api/trails', function(req,res) {
   //get all trails as JSON
   db.Trail.find()

@@ -45,7 +45,7 @@ app.get('/api', function api_index(req, res) {
     endpoints: [
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
       {method: "GET", path: "/api/profile", description: "More about me!"}, 
-      {method: "POST", path: "/api/trails", description: "Create a new trail!"} 
+      {method: "POST", path: "/api/trails", description: "See all the trails!"} 
     ]
   });
 });
@@ -71,7 +71,7 @@ app.get('/api/profile', function(req,res) {
 });
 
 app.get('/api/trails', function(req,res) {
-  //get all trails as JSON
+  //get all trails 
   db.Trail.find()
     .exec(function(err,trails) {
       if (err) {return console.log(err);}
@@ -103,6 +103,7 @@ app.post('/api/trails', function(req,res) {
 });
 
 app.put('api/trails/:id', function(req,res) {
+  //updates trail(postman fail)
   var id = req.params.id;
   db.Trail.findOne({_id: id}, function(err,trail) {
     if(req.body.name) trail.name = req.body.name;
@@ -118,6 +119,7 @@ app.put('api/trails/:id', function(req,res) {
 });
 
 app.delete('api/trails/:id', function(req,res) {
+  //deletes trail(postman fail)
   var trailId = req.params.id;
   db.Trail.findOneAndRemove({_id: trailId}, function(err,deletedTrail) {
       res.json(deletedTrail);

@@ -102,10 +102,11 @@ app.post('/api/trails', function(req,res) {
   });
 });
 
-app.put('api/trails/:id', function(req,res) {
+app.put('/api/trails/:id', function(req,res) {
   //updates trail(postman fail)
   var id = req.params.id;
-  db.Trail.findOne({_id: id}, function(err,trail) {
+  db.Trail.findById({_id: id}, function(err,trail) {
+    if(err) {return console.log(err);}
     if(req.body.name) trail.name = req.body.name;
     if(req.body.miles) trail.miles = req.body.miles;
     if(req.body.difficulty) trail.difficulty = req.body.difficulty;
@@ -113,16 +114,16 @@ app.put('api/trails/:id', function(req,res) {
 
     trail.save(function(err) {
       if(err) console.log(err);
-      res.redirect('/trails');
+      res.send('Trail updated');
     });
   });
 });
 
-app.delete('api/trails/:id', function(req,res) {
+app.delete('/api/trails/:id', function(req,res) {
   //deletes trail(postman fail)
   var trailId = req.params.id;
-  db.Trail.findOneAndRemove({_id: trailId}, function(err,deletedTrail) {
-      res.json(deletedTrail);
+  db.Trail.findOneAndRemove({_id: trailId}, function(err,doc) {
+      res.json(doc);
     });
 });
 

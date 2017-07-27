@@ -102,6 +102,21 @@ app.post('/api/trails', function(req,res) {
   });
 });
 
+app.put('api/trails/:id', function(req,res) {
+  var id = req.params.is;
+  db.Trail.findById({_id: id}, function(err,trail) {
+    if(req.body.name) trail.name = req.body.name;
+    if(req.body.miles) trail.miles = req.body.miles;
+    if(req.body.difficulty) trail.difficulty = req.body.difficulty;
+    if(req.body.completed) trail.completed = req.body.completed;
+
+    trail.save(function(err) {
+      if(err) console.log(err);
+      res.redirect('/trails');
+    });
+  });
+});
+
 app.delete('api/trails/:id', function(req,res) {
   var trailId = req.params.id;
   db.Trail.findOneAndRemove({_id: trailId}, function(err,deletedTrail) {

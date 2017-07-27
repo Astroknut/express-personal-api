@@ -103,7 +103,7 @@ app.post('/api/trails', function(req,res) {
 });
 
 app.put('api/trails/:id', function(req,res) {
-  var id = req.params.is;
+  var id = req.params.id;
   db.Trail.findById({_id: id}, function(err,trail) {
     if(req.body.name) trail.name = req.body.name;
     if(req.body.miles) trail.miles = req.body.miles;

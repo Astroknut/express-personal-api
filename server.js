@@ -87,6 +87,7 @@ app.get('/api/trails/:id', function(req,res) {
 });
 
 app.post('/api/trails', function(req,res) {
+  //creates new trail
   var newTrail = new db.Trail({
     name: req.body.name,
     miles: req.body.miles,
@@ -103,8 +104,7 @@ app.post('/api/trails', function(req,res) {
 
 app.delete('api/trails/:id', function(req,res) {
   var trailId = req.params.id;
-  db.Trail.findOneAndRemove({_id: trailId})
-    .exec(function(err,deletedTrail) {
+  db.Trail.findOneAndRemove({_id: trailId}, function(err,deletedTrail) {
       res.json(deletedTrail);
     });
 });

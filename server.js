@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
 /************
  * DATABASE *
  ************/
@@ -72,6 +73,20 @@ app.post('/api/trails', function(req,res) {
     difficulty: req.body.difficulty,
     completed: req.body.completed
   });
+  newTrail.save(function(err,trail){
+    if (err) {
+      return console.log(err);
+    }
+    res.json(trail);
+  });
+});
+
+app.delete('api/trails/:id', function(req,res) {
+  var trailId = req.params.id;
+  db.Trail.findOneAndRemove({_id: trailId})
+    .exec(function(err,deletedTrail) {
+      res.json(deletedTrail);
+    });
 });
 
 /**********

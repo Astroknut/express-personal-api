@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 
 var TrailSchema = new Schema({
 	name: String,
-	miles: Integer,
+	miles: Number,
 	difficulty: String,
 	completed: Boolean
 });
